@@ -5,7 +5,7 @@ import { throwError, Observable } from 'rxjs';
 import { catchError, tap, map, finalize } from 'rxjs/operators'
 
 
-export interface Movie {
+export interface Movie  {
   Title: string;
   Released: string;
   Language: string;
@@ -21,8 +21,6 @@ export class FilmApiService {
 
    corsBypass = 'cors-anywhere.herokuapp.com';
 
-   api = 'www.omdbapi.com/?';
-   apikeyOmdb = 'apikey=7536f32f';
    apikeyTmdb = '0c16d19855fa7e3771c9710816a31bbd';
 
    urlTmdb = 'https://api.themoviedb.org/3/';
@@ -38,17 +36,11 @@ export class FilmApiService {
     return throwError('Algo ha pasado, prueba otra vez');
   }
 
-  getMovieByTitleFromOmdb(title){
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    console.log(headers);
-    let urlOmdb = `https://${this.corsBypass}/${this.api}t=${title}&${this.apikeyOmdb}`;
-
-    console.log("URL", urlOmdb)
-    return this.http.get(urlOmdb, { headers }).pipe(map((response: any) => { return response.json() } ));;
-  }
-
   getMovieByTitleFromTmdb(title){
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+
     console.log(headers);
     let urlTmdb = ''.concat(this.urlTmdb, 'search/movie?api_key=', this.apikeyTmdb, '&query=', title, '&page=1');
 
