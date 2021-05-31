@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Film details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card >
+    <ion-card-header>
+      <ion-card-title>{{ movie.Title }}</ion-card-title>
+      <ion-card-subtitle>{{ movie.Released }}</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>{{ movie.Plot }}</ion-card-content>
+
+    <ion-card-content>Puntuation: {{ movie.Awards }}</ion-card-content>
+    <ion-card-content>Language: {{ movie.Language }}</ion-card-content>
+  </ion-card>
+</ion-content>
+
