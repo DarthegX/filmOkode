@@ -36,7 +36,7 @@ export class FilmApiService {
     return throwError('Algo ha pasado, prueba otra vez');
   }
 
-  getMovieByTitleFromTmdb(title){
+  async getMovieByTitleFromTmdb(title){
     let headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json')
@@ -44,6 +44,6 @@ export class FilmApiService {
     console.log(headers);
     let urlTmdb = ''.concat(this.urlTmdb, 'search/movie?api_key=', this.apikeyTmdb, '&query=', title, '&page=1');
 
-    return this.http.get(urlTmdb, { headers });
+    return await this.http.get(urlTmdb, { headers }).toPromise();
   }
 }

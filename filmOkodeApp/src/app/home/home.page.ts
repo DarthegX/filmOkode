@@ -10,53 +10,50 @@ import { FilmApiService } from '../services/api.service';
 })
 export class HomePage {
 
-  movieList;
+  movieList = [];
   movieTitle;
   
   constructor(
     private apiService: FilmApiService,
     private router: Router 
-  ) {
-    this.movieList = [];
-  }
+  ) { }
 
-  getMovieFromApi() {
-    this.apiService
-      .getMovieByTitleFromTmdb(this.movieTitle)
-      .subscribe(async (res) => {
-        if (!res) {
-          this.movieList = [];
-          return;
-        }
-        
-        const result = await JSON.stringify(res);
-        const jsonResult = JSON.parse(result);
-        const films = jsonResult.results;
-
-        
-        if (!films || !(films.length > 0)) {
-          this.movieList = [];
-          return;
-        }
-
-        this.movieList = films.map((movie) => {
-          const {
-            original_title:Title,
-            release_date: Released,
-            original_language: Language,
-            overview: Plot,
-            vote_average: Awards,
-          } = movie;
-          return {
-            Title,
-            Released,
-            Language,
-            Plot,
-            Awards,
-          };
-        });
-      });
+  async getMovieFromApi() {
+    const res = await this.apiService.getMovieByTitleFromTmdb(this.movieTitle);
     
+    if (!res) {
+      this.movieList = [];
+      return;
+    }
+        
+    const result = await JSON.stringify(res);
+    const jsonResult = JSON.parse(result);
+    const films = jsonResult.results;
+
+        
+    if (!films || !(films.length > 0)) {
+      this.movieList = [];
+      return;
+    }
+
+    this.movieList = films.map((movie) => {
+      const {
+        original_title:Title,
+        release_date: Released,
+        original_language: Language,
+        overview: Plot,
+        vote_average: Awards,
+      } = movie;
+      return {
+        Title,
+        Released,
+        Language,
+        Plot,
+        Awards,
+      };
+    });
+
+    console.log("movie list", this.movieList)
   }
   
 
