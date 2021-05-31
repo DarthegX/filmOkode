@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      FilmOkode
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-toolbar>
+      <ion-item >
+        <ion-label position='floating'>Busca una película...</ion-label>
+        <ion-input type="text" 
+                   [(ngModel)]="movieTitle" 
+                   id="input">
+        </ion-input>
+      </ion-item>
+      
+      <ion-button slot="end"
+                  (click)="getMovieFromApi()">
+        Buscar
+      </ion-button>  
+    
+  </ion-toolbar>  
+
+  <ion-list class="movie-list">
+
+  </ion-list>
+    
+</ion-content>
