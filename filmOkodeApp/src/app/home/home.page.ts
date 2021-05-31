@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { map } from 'rxjs/internal/operators/map';
 import { FilmApiService } from '../services/api.service';
 
 @Component({
@@ -20,26 +21,25 @@ export class HomePage {
   }
 
   getMovieFromApi() {
-    console.log("TITLE", this.movieTitle)
     this.apiService
       .getMovieByTitleFromTmdb(this.movieTitle)
-      .subscribe((res) => {
-        console.log("RESULTS", res)
+      .subscribe(async (res) => {
         if (!res) {
           this.movieList = [];
           return;
         }
+        
+        const result = await JSON.stringify(res);
+        const jsonResult = JSON.parse(result);
+        const films = jsonResult.results;
 
         
-
-        console.log("RESPUESTA", res)
-        /*
-        if (!results || !(results.length > 0)) {
+        if (!films || !(films.length > 0)) {
           this.movieList = [];
           return;
         }
 
-        this.movieList = results.map((movie) => {
+        this.movieList = films.map((movie) => {
           const {
             original_title:Title,
             release_date: Released,
@@ -54,7 +54,7 @@ export class HomePage {
             Plot,
             Awards,
           };
-        });*/
+        });
       });
     
   }

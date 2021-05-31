@@ -16,15 +16,20 @@
         </ion-input>
       </ion-item>
       
-      <ion-button slot="end"
+      <ion-button class="search-btn"
+                  slot="end"
                   (click)="getMovieFromApi()">
         Buscar
       </ion-button>  
     
-  </ion-toolbar>  
+    </ion-toolbar>  
 
   <ion-list class="movie-list">
-
+    <ion-item *ngFor="let movie of movieList"
+      routerLink="/details"
+      (click)="showMovieDetails(movie)">
+      <ion-label>{{ movie.Title }}</ion-label>
+    </ion-item> 
   </ion-list>
     
 </ion-content>
